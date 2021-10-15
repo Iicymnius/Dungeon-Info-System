@@ -24,9 +24,10 @@ void CInputMain::DungeonTeleport(LPCHARACTER ch, const char* c_pData)
 //find again;
 
 	case HEADER_CG_DRAGON_SOUL_REFINE:
-	[
-		...
-	]
+	{
+		[...]
+	}
+	break;
 
 //add below;
 

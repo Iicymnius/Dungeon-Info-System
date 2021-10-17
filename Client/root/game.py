@@ -1,8 +1,11 @@
 #find;
 
-	def BINARY_ServerCommand_Run(self, line):
+			# PRIVATE_SHOP_PRICE_LIST
+			"MyShopPriceList"		: self.__PrivateShop_PriceList,
+			# END_OF_PRIVATE_SHOP_PRICE_LIST
+		}
 
-#add above;
+#add below;
 
 		if app.ENABLE_DUNGEON_INFO_SYSTEM:
 			self.serverCommander.SAFE_RegisterCallBack("CleanDungeonInfo", self.CleanDungeonInfo)

@@ -163,17 +163,6 @@ window = {
 									"fontname" : "Tahoma:17",
 									"all_align" : "center"
 								},
-								{
-									"name" : "DungeonInfoRender",
-									"type" : "button",
-
-									"x" : RIGHTBOARD_WIDTH /2 - 95 + 65 + 65 + 35,
-									"y" : 3,
-
-									"default_image" : "d:/ymir work/ui/pattern/q_mark_01.tga",
-									"over_image" : "d:/ymir work/ui/pattern/q_mark_02.tga",
-									"down_image" : "d:/ymir work/ui/pattern/q_mark_01.tga",
-								},
 							),
 						},
 

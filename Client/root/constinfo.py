@@ -6,4 +6,3 @@ if app.ENABLE_DUNGEON_INFO_SYSTEM:
 		"ranking_type" : 0,
 		"ranking_list" : []
 	}
-	IS_RENDER_OPEN = 0

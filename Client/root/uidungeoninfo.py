@@ -9,7 +9,6 @@ import localeInfo
 import uiScriptLocale
 import uiCommon
 import net
-import renderTarget
 import nonplayer
 import constInfo
 import chat
@@ -184,7 +183,6 @@ class DungeonInfo(ui.ScriptWindow):
 		self.dungeonName = {}
 		self.dungeonAvailable = {}
 		self.questionDialog = None
-		self.renderModelPreview = None
 		self.isAlreadyLoaded = False
 
 	def __del__(self):
@@ -197,7 +195,6 @@ class DungeonInfo(ui.ScriptWindow):
 		self.dungeonName = {}
 		self.dungeonAvailable = {}
 		self.questionDialog = None
-		self.renderModelPreview = None
 		self.isAlreadyLoaded = False
 
 	def LoadDialog(self):
@@ -235,9 +232,6 @@ class DungeonInfo(ui.ScriptWindow):
 			self.dungeonInfoTeleportButton = self.GetChild("DungeonInfoTeleportButton")
 			self.closeDungeonBoard = self.GetChild("CloseDungeonBoard")
 
-			self.dungeonRenderTarget = self.GetChild("DungeonInfoRender")
-			self.dungeonRenderTarget.SetEvent(ui.__mem_func__(self.OnPressedInfoButton))
-
 		except:
 			import exception
 			exception.Abort("DungeonInfo.LoadDialog.GetChild")
@@ -253,99 +247,11 @@ class DungeonInfo(ui.ScriptWindow):
 
 		self.isAlreadyLoaded = True
 
-	def OnPressedInfoButton(self):
-		if self.renderModelPreview:
-			self.OnRenderBossClose()
-		elif int(constInfo.dungeonInfo[self.dungeonIndex]['boss_vnum']) != 0:
-			self.OnRenderBoss(int(constInfo.dungeonInfo[self.dungeonIndex]['boss_vnum']))
-
-	def OnRenderBoss(self, model):
-		if model == 2493:
-			return
-		RENDER_TARGET_INDEX = 12
-
-		self.renderModelPreview = ui.ThinBoardDungeon()
-		self.renderModelPreview.SetParent(self)
-		self.renderModelPreview.SetSize(190+10, 280+30)
-		self.renderModelPreview.SetPosition(537, 431 / 6)
-		self.renderModelPreview.Show()
-
-		self.modelPreviewTarget = ui.RenderTarget()
-		self.modelPreviewTarget.SetParent(self.renderModelPreview)
-		self.modelPreviewTarget.SetSize(190, 280)
-		self.modelPreviewTarget.SetPosition(5, 22)
-		self.modelPreviewTarget.SetRenderTarget(RENDER_TARGET_INDEX)
-		self.modelPreviewTarget.Show()
-
-		self.modelPreviewTargetText = ui.TextLine()
-		self.modelPreviewTargetText.SetParent(self.renderModelPreview)
-		self.modelPreviewTargetText.SetPackedFontColor(0xffFFB96D)
-		self.modelPreviewTargetText.SetPosition(0, 5)
-		self.modelPreviewTargetText.SetText(nonplayer.GetMonsterName(int(constInfo.dungeonInfo[self.dungeonIndex]['boss_vnum'])))
-		self.modelPreviewTargetText.SetOutline()
-		self.modelPreviewTargetText.SetFeather(False)
-		self.modelPreviewTargetText.SetWindowHorizontalAlignCenter()
-		self.modelPreviewTargetText.SetHorizontalAlignCenter()
-		self.modelPreviewTargetText.Show()
-		renderTarget.SetBackground(RENDER_TARGET_INDEX, "d:/ymir work/ui/game/myshop_deco/model_view_bg.sub")
-		renderTarget.SetVisibility(RENDER_TARGET_INDEX, True)
-		renderTarget.SelectModel(RENDER_TARGET_INDEX, model)
-		if model == 1093:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.6, 0.6, 0.6)
-		elif model == 694:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.7, 0.7, 0.7)
-		elif model == 2092:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.2, 0.2, 0.2)
-		elif model == 2598:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.5, 0.5, 0.5)
-		elif model == 6091:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.5, 0.5, 0.5)
-		elif model == 6191:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.5, 0.5, 0.5)
-		elif model == 4103:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.5, 0.5, 0.5)
-
-	def OnChangeRenderBoss(self, vnum):
-		if vnum == 2493:
-			self.modelPreviewTargetText.SetText(nonplayer.GetMonsterName(vnum))
-			return
-		RENDER_TARGET_INDEX = 12
-		renderTarget.SelectModel(RENDER_TARGET_INDEX, vnum)
-		if vnum == 1093:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.6, 0.6, 0.6)
-		elif vnum == 694:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.7, 0.7, 0.7)
-		elif vnum == 2092:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.2, 0.2, 0.2)
-		elif vnum == 2598:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.5, 0.5, 0.5)
-		elif vnum == 6091:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.5, 0.5, 0.5)
-		elif vnum == 6191:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.5, 0.5, 0.5)
-		elif model == 4103:
-			renderTarget.SetScale(RENDER_TARGET_INDEX, 0.5, 0.5, 0.5)
-		self.modelPreviewTargetText.SetText(nonplayer.GetMonsterName(vnum))
-		
-	def OnRenderBossClose(self):
-		RENDER_TARGET_INDEX = 12
-
-		if self.renderModelPreview:
-			self.renderModelPreview.Hide()
-			self.modelPreviewTargetText.Hide()
-
-			self.renderModelPreview = None
-			self.modelPreviewTargetText = None
-
-			renderTarget.SetVisibility(RENDER_TARGET_INDEX, False)
-			
 	def Close(self):
 		if self.toolTip:
 			self.toolTip = None
 
 		self.isAlreadyLoaded = False
-		
-		self.OnRenderBossClose()
 		
 		self.Hide()
 
@@ -510,8 +416,6 @@ class DungeonInfo(ui.ScriptWindow):
 		else:
 			self.dungeonInfoItemSlot.LoadImage("d:/ymir work/ui/pet/skill_button/skill_enable_button.sub")
 
-		if self.renderModelPreview:
-			self.OnChangeRenderBoss(int(constInfo.dungeonInfo[self.dungeonIndex]['boss_vnum']))
 	def FormatTime(self, seconds):
 		if seconds == 0:
 			return localeInfo.DUNGEON_INFO_NONE
@@ -527,9 +431,9 @@ class DungeonInfo(ui.ScriptWindow):
 		hour = int((time / 60) / 60) % 24
 
 		if hour <= 0:
-			return "Soðuma: 00:%d:%02d" % (minute, second)
+			return "SoÄŸuma: 00:%d:%02d" % (minute, second)
 		else:
-			return "Soðuma: 0%d:%02d:%02d" % (hour, minute,second)
+			return "SoÄŸuma: 0%d:%02d:%02d" % (hour, minute,second)
 
 	def TeleportDungeon(self):
 		if player.GetStatus(player.LEVEL) < constInfo.dungeonInfo[self.dungeonIndex]['min_level']:

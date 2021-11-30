@@ -8,7 +8,7 @@
 				{
 					"name" : "l_button",
 					"type" : "button",
-					"x" : REAL_WIDTH-BOARD_WIDTH,
+					"x" : 12,
 					"y" : 84,
 					"default_image" : ROOT + "dungeon/1.png",
 					"over_image" : ROOT + "dungeon/2.png",

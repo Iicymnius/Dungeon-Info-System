@@ -1,5 +1,33 @@
 #find;
 
+class MiniMap(ui.ScriptWindow):
+
+#find in function;
+
+	def __init__(self):
+
+#change;
+
+	def __init__(self, interface):
+
+#find in same function;
+
+		self.canSeeInfo = True
+
+#add below;
+
+		self.interface = interface
+
+#find again;
+
+		self.serverInfo = None
+
+#add below;
+
+		self.interface = None
+
+#find again;
+
 		self.AtlasShowButton = 0
 
 #add below;

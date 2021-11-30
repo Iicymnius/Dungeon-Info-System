@@ -14,6 +14,14 @@ if app.ENABLE_DUNGEON_INFO_SYSTEM:
 
 #find again;
 
+		wndMiniMap = uiMiniMap.MiniMap()
+
+#change
+
+		wndMiniMap = uiMiniMap.MiniMap(self)
+
+#find again;
+
 	def __MakeHelpWindow(self):
 
 #add above;

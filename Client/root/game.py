@@ -1,9 +1,10 @@
 #find;
 
-			# PRIVATE_SHOP_PRICE_LIST
-			"MyShopPriceList"		: self.__PrivateShop_PriceList,
-			# END_OF_PRIVATE_SHOP_PRICE_LIST
-		}
+		self.serverCommander=stringCommander.Analyzer()
+		for serverCommandItem in serverCommandList.items():
+			self.serverCommander.SAFE_RegisterCallBack(
+				serverCommandItem[0], serverCommandItem[1]
+			)
 
 #add below;
 
